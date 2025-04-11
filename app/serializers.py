@@ -68,7 +68,8 @@ class BookingSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError('car_number must be set')
             
         booking,_ = Booking.objects.get_or_create(**self.validated_data, status = 'booked')
-        History.objects.create(user = user, slot=slot)
+        parking = Parking.objects.get(owner = user)
+        History.objects.create(user = user, slot=slot, parking = parking)
         return booking
 
 class BookingDetailSerializer(serializers.ModelSerializer):
