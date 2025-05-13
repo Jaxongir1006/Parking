@@ -82,3 +82,18 @@ class HistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = History
         fields = '__all__'
+
+    
+class ParkingShortSeraizer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Parking
+        exclude = ['owner']
+
+class ParkingDetailSeraizer(serializers.ModelSerializer):
+    floor_count = serializers.ReadOnlyField()
+    free_slot = serializers.ReadOnlyField()
+    floors = FloorSerializer(many = True)
+    class Meta:
+        model = Parking
+        exclude = ['owner']
